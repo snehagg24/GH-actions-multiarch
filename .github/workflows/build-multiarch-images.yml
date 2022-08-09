@@ -39,6 +39,7 @@ jobs:
 
   multi-arch-image:
       runs-on: self-hosted
+      needs: [x86-image, ppc64le-image]
       steps:
       - uses: actions/checkout@v3
       - name: Build and push
