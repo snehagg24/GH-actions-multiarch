@@ -1,0 +1,46 @@
+name: Build multi-arch images
+  
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+  
+jobs:
+  x86-image:
+      runs-on: self-hosted
+      steps:
+      - uses: actions/checkout@v3
+      - name: Check the host runner architecture
+        run: |
+          arch  
+      - name: Build and push
+        run: |
+          chmod +x ./build.sh; ./build.sh
+
+  ppc64le-image:
+      runs-on: self-hosted
+      steps:
+      - uses: actions/checkout@v3
+      - name: Check the host runner architecture
+        run: |
+          arch
+      - name: Fix ssh Could not resolve hostname
+        run: |
+          ssh-keyscan ${{ secrets.PPC64LE_IP }}  >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
+      - name: ssh into the ppc64le machine and execute the script
+        run: |
+          echo -e "Display the bastion machine architecture\n" 
+          arch
+          rm -rf /root/${{ secrets.GH_REPO }}
+          git clone https://github.com/${{ secrets.GH_USER }}/${{ secrets.GH_REPO }}.git /root/${{ secrets.GH_REPO }}
+          echo -e "SSH into the Power machine and execute the script\n"
+          ssh root@${{ secrets.PPC64LE_IP }} < ./build.sh
+
+  multi-arch-image:
+      runs-on: self-hosted
+      steps:
+      - uses: actions/checkout@v3
+      - name: Build and push
+        run: |
+          chmod +x ./create-multi-arch.sh; ./create-multi-arch.sh
