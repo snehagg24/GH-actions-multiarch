@@ -40,7 +40,7 @@ jobs:
           ROBOT_USER: ${{ secrets.ROBOT_USER }}
           ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
         with:
-          host: {{ secrets.PPC64LE_IP }}
+          host: ${{ secrets.PPC64LE_IP }}
           username: root
           key: ${{ secrets.KEY }}
           port: 22
