@@ -54,10 +54,10 @@ jobs:
             rm -rf /root/$GH_REPO
             git clone https://github.com/snehakpersistent/GH-actions-multiarch.git
             cd /root/$GH_REPO
-            ls -al /root/$GH_REPO
             echo -e "SSH into the Power machine and execute the script\n"
             chmod +x ./build.sh
-            ssh root@$PPC64LE_IP < 'build.sh $QUAY_REPO $ROBOT_USER $ROBOT_TOKEN'
+            ls -al /root/$GH_REPO
+            ssh root@$PPC64LE_IP < '/root/$GH_REPO/build.sh $QUAY_REPO $ROBOT_USER $ROBOT_TOKEN'
 
   multi-arch-image:
       runs-on: self-hosted
