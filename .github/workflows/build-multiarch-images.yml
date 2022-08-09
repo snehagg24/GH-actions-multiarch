@@ -51,9 +51,8 @@ jobs:
           script: |
             echo -e "Display the bastion machine architecture\n" 
             arch
-            echo $GH_REPO
             rm -rf /root/$GH_REPO
-            git clone https://github.com/$GH_USER/$GH_REPO.git
+            git clone https://github.com/snehakpersistent/GH-actions-multiarch.git
             cd /root/$GH_REPO
             ls /root/
             echo -e "SSH into the Power machine and execute the script\n"
