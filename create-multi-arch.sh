@@ -2,7 +2,7 @@
 
 export DOCKER_CLI_EXPERIMENTAL=enabled
 
-docker manifest create $QUAY_REPO/test-gitlab:latest \
+docker manifest create $QUAY_REPO/test-gh-action-multiarch:latest \
 $QUAY_REPO/test-gh-action-multiarch:latest-x86_64 $QUAY_REPO/test-gh-action-multiarch:latest-ppc64le
 
 docker manifest inspect $QUAY_REPO/test-gh-action-multiarch:latest
