@@ -39,21 +39,24 @@ jobs:
           QUAY_REPO: ${{ secrets.QUAY_REPO }}
           ROBOT_USER: ${{ secrets.ROBOT_USER }}
           ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
+          GH_USER: ${{ secrets.GH_USER }}
+          GH_REPO: ${{ secrets.GH_REPO }}
+          PPC64LE_IP: ${{ secrets.PPC64LE_IP }}
         with:
           host: ${{ secrets.PPC64LE_IP }}
           username: root
           key: ${{ secrets.KEY }}
           port: 22
-          envs: QUAY_REPO,ROBOT_USER,ROBOT_TOKEN
+          envs: QUAY_REPO,ROBOT_USER,ROBOT_TOKEN,GH_USER,GH_REPO,PPC64LE_IP
           script: |
             echo -e "Display the bastion machine architecture\n" 
             arch
-            rm -rf /root/${{ secrets.GH_REPO }}
-            git clone https://github.com/${{ secrets.GH_USER }}/${{ secrets.GH_REPO }}.git /root/${{ secrets.GH_REPO }}
-            cd /root/${{ secrets.GH_REPO }}
+            rm -rf /root/$GH_REPO
+            git clone https://github.com/$GH_USER/$GH_REPO.git /root/$GH_REPO
+            cd /root/$GH_REPO
             echo -e "SSH into the Power machine and execute the script\n"
             chmod +x ./build.sh
-            ssh root@${{ secrets.PPC64LE_IP }} < './build.sh $QUAY_REPO $ROBOT_USER $ROBOT_TOKEN'
+            ssh root@$PPC64LE_IP < 'build.sh $QUAY_REPO $ROBOT_USER $ROBOT_TOKEN'
 
   multi-arch-image:
       runs-on: self-hosted
