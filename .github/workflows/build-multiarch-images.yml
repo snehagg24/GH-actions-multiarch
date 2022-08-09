@@ -5,6 +5,11 @@ on:
     branches: [ main ]
 
   workflow_dispatch:
+
+env:
+  QUAY_REPO: ${{ secrets.QUAY_REPO }}
+  ROBOT_USER: ${{ secrets.ROBOT_USER }}
+  ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
   
 jobs:
   x86-image:
