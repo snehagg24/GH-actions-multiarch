@@ -52,6 +52,7 @@ jobs:
             git clone https://github.com/${{ secrets.GH_USER }}/${{ secrets.GH_REPO }}.git /root/${{ secrets.GH_REPO }}
             cd /root/${{ secrets.GH_REPO }}
             echo -e "SSH into the Power machine and execute the script\n"
+            chmod +x ./build.sh
             ssh root@${{ secrets.PPC64LE_IP }} < './build.sh $QUAY_REPO $ROBOT_USER $ROBOT_TOKEN'
 
   multi-arch-image:
